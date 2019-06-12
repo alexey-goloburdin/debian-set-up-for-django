@@ -117,7 +117,7 @@ createdb --encoding UNICODE dbms_db --username postgres
 exit
 ```
 
-Create `dbms` db user and grang previleges to him:
+Create `dbms` db user and grand privileges to him:
 
 ```
 sudo -u postgres psql
