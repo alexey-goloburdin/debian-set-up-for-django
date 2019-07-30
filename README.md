@@ -282,11 +282,21 @@ In browser at address http://ip_of_our_server you should see:
 nginx/1.10.3
 ```
 
-Add localhost for Nginx proxy to Django allowed hosts:
+Add localhost for Nginx proxy to Django allowed hosts and start Gunicorn:
 
 ```
 vim vim /home/www/code/project1/project1/project1/settings.py
     ALLOWED_HOSTS = ['ip_of_our_server'] change to ALLOWED_HOSTS = ['ip_of_our_server', '127.0.0.1']
+
+/home/www/code/project1/bin/start_gunicorn.sh
+```
+
+In browser at address http://ip_of_our_server you should see:
+
+```
+...
+The install worked successfully! Congratulations!
+...
 ```
 
 ## Install and configure Supervisor
@@ -305,7 +315,6 @@ vim project/supervisor.salesbeat.conf
 	autorestart=true
 	redirect_stderr=true
 ```
-
 
 ## Install and configure PostgreSQL
 
