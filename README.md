@@ -303,19 +303,21 @@ The install worked successfully! Congratulations!
 
 ## Install and configure Supervisor
 
-Now recommended way is using Systemd instead of supervisor. If you need supervisor — welcome:
+Now recommended way is using Systemd instead of Supervisor. If you need supervisor — you are welcome.
+Install and configure Supervisor to autostart Gunicorn:
 
 ```
 sudo apt install supervisor
-vim project/supervisor.salesbeat.conf
-	[program:www_gunicorn]
-	command=/home/www/code/project/bin/start_gunicorn.sh
-	user=www
-	process_name=%(program_name)s
-	numprocs=1
-	autostart=true
-	autorestart=true
-	redirect_stderr=true
+sudo vim /etc/supervisor/conf.d/project1.conf
+    [program:www_gunicorn]
+    command=/home/www/code/project/bin/start_gunicorn.sh
+    user=www
+    process_name=%(program_name)s
+    numprocs=1
+    autostart=true
+    autorestart=true
+    redirect_stderr=true
+sudo service supervisor start
 ```
 
 ## Install and configure PostgreSQL
