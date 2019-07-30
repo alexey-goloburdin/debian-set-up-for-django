@@ -29,6 +29,30 @@ sudo service ssh restart
 sudo passwd www
 ```
 
+## Setup russian locale (optional)
+
+```
+sudo localedef ru_RU.UTF-8 -i ru_RU -fUTF-8 ; \
+export LANGUAGE=ru_RU.UTF-8 ; \
+export LANG=ru_RU.UTF-8 ; \
+export LC_ALL=ru_RU.UTF-8 ; \
+sudo locale-gen ru_RU.UTF-8 ; \
+sudo dpkg-reconfigure locales
+```
+
+In window "Configuring locales":
+* OK
+
+- disable en_US.UTF-8 UTF-8
++ enable ru_RU.UTF-8 UTF-8
+* OK
+* OK
+
++ select ru_RU.UTF-8
+* OK
+
+Restart ssh session.
+
 ## Init — must-have packages & ZSH
 
 ```
