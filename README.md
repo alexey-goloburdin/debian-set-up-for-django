@@ -1,6 +1,6 @@
 # Debian Server Set Up for Django Instruction
 
-In this guide we will set up clean Debian server for Python and Django projects. We will configure secure SSH connection, install from Debian repositories and from sources all needed packages and ware it together for working Debian Django server.
+In this guide we will set up clean Debian 9 server for Python and Django projects. We will configure secure SSH connection, install from Debian repositories and from sources all needed packages and ware it together for working Debian Django server.
 
 [Youtube video guide (in Russian)](https://www.youtube.com/watch?v=FLiKTJqyyvs)
 
@@ -54,7 +54,7 @@ In window "Configuring locales":
 
 Restart ssh session.
 
-## Init — must-have packages & ZSH
+## Install must-have packages
 
 ```
 sudo apt-get install -y zsh tree redis-server nginx  libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-dev python-imaging python3-lxml libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev supervisor
@@ -65,6 +65,8 @@ Create password for root:
 ```
 sudo passwd
 ```
+
+## Install ZSH (optional)
 
 Install [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh):
 
@@ -87,7 +89,7 @@ vim ~/.zshrc
     alias cls="clear"
 ```
 
-## Install python 3.7
+## Install Python 3.7
 
 Build from source python 3.7, install with prefix to ~/.python folder:
 
@@ -160,7 +162,7 @@ Test manage.py:
 Ctrl+D
 ```
 
-Install ipython for comfort:
+Install ipython for comfort (optional):
 
 ```
 pip install ipython
