@@ -209,6 +209,104 @@ The install worked successfully! Congratulations!
 ...
 ```
 
+## Install and configure Gunicorn
+
+Install Gunicorn:
+
+```
+. ~/code/project1/env/bin/activate
+pip install gunicorn
+pip freeze > ../requirements.txt
+```
+
+Create config. Number of workers = num_of_cores * 2 + 1
+
+```
+cd ~/code/project1/project1
+vim gunicorn_config.py
+    command = '/home/www/code/project1/env/bin/gunicorn'
+    pythonpath = '/home/www/code/project1/project1'
+    bind = '127.0.0.1:8001'
+    workers = 5
+    user = 'www'
+    limit_request_fields = 32000
+    limit_request_field_size = 0
+    raw_env = 'DJANGO_SETTINGS_MODULE=project1.settings'
+```
+
+```
+cd /home/www/code/project1
+mkdir bin
+vim bin/start_gunicorn.sh
+    #!/bin/bash
+    source /home/www/code/project1/env/bin/activate
+    # source /home/www/code/project1/env/bin/postactivate
+    exec gunicorn -c "/home/www/code/project1/project1/gunicorn_config.py" project1.wsgi
+chmod +x bin/start_gunicorn.sh
+. ./bin/start_gunicorn.sh
+```
+
+## Configure Nginx
+
+Change config of Nginx:
+
+```
+sudo vim /etc/nginx/sites-enabled/default
+
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        root /var/www/html;
+
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+
+        location / {
+                proxy_pass http://127.0.0.1:8001;
+                proxy_set_header X-Forwarded-Host $server_name;
+                proxy_set_header X-Real-IP $remote_addr;
+                add_header P3P 'CP="ALL DSP COR PSAa PSDa OUR NOR ONL UNI COM NAV"';
+                add_header Access-Control-Allow-Origin *;
+        }
+}
+
+sudo service nginx restart
+```
+
+In browser at address http://ip_of_our_server you should see:
+
+```
+502 Bad Gateway
+nginx/1.10.3
+```
+
+Add localhost for Nginx proxy to Django allowed hosts:
+
+```
+vim vim /home/www/code/project1/project1/project1/settings.py
+    ALLOWED_HOSTS = ['ip_of_our_server'] change to ALLOWED_HOSTS = ['ip_of_our_server', '127.0.0.1']
+```
+
+## Install and configure Supervisor
+
+Now recommended way is using Systemd instead of supervisor. If you need supervisor — welcome:
+
+```
+sudo apt install supervisor
+vim project/supervisor.salesbeat.conf
+	[program:www_gunicorn]
+	command=/home/www/code/project/bin/start_gunicorn.sh
+	user=www
+	process_name=%(program_name)s
+	numprocs=1
+	autostart=true
+	autorestart=true
+	redirect_stderr=true
+```
+
+
 ## Install and configure PostgreSQL
 
 Install PostgreSQL 11 and configure locales.
@@ -236,7 +334,7 @@ sudo vim /etc/profile
     export LC_ALL=ru_RU.UTF-8
 ```
 
-Change `postges` password, create clear database named `dbms_db`:
+Change `postgres` password, create clear database named `dbms_db`:
 
 ```
 sudo passwd postgres
@@ -278,43 +376,4 @@ Run SQL dump, if you have:
 
 ```
 psql -h localhost dbms_db dbms  < dump.sql
-```
-
-## Install and configure supervisor
-
-Now recommended way is using Systemd instead of supervisor. If you need supervisor — welcome:
-
-```
-sudo apt install supervisor
-
-vim /home/www/code/project/bin/start_gunicorn.sh
-	#!/bin/bash
-	source /home/www/code/project/env/bin/activate
-	source /home/www/code/project/env/bin/postactivate
-	exec gunicorn  -c "/home/www/code/project/gunicorn_config.py" project.wsgi
-
-chmod +x /home/www/code/project/bin/start_gunicorn.sh
-
-vim project/supervisor.salesbeat.conf
-	[program:www_gunicorn]
-	command=/home/www/code/project/bin/start_gunicorn.sh
-	user=www
-	process_name=%(program_name)s
-	numprocs=1
-	autostart=true
-	autorestart=true
-	redirect_stderr=true
-```
-
-If you need some Gunicorn example config — welcome:
-
-```
-command = '/home/www/code/project/env/bin/gunicorn'
-pythonpath = '/home/www/code/project/project'
-bind = '127.0.0.1:8001'
-workers = 3
-user = 'www'
-limit_request_fields = 32000
-limit_request_field_size = 0
-raw_env = 'DJANGO_SETTINGS_MODULE=project.settings'
 ```
