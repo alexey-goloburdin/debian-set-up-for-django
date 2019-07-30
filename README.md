@@ -356,7 +356,7 @@ sudo vim /etc/profile
     export LC_ALL=ru_RU.UTF-8
 ```
 
-Change `postgres` password, create clear database named `dbms_db`:
+Change `postgres` password, create clear database with name `dbms_db`:
 
 ```
 sudo passwd postgres
@@ -366,7 +366,7 @@ createdb --encoding UNICODE dbms_db --username postgres
 exit
 ```
 
-Create `dbms` db user and grand privileges to him:
+Create `dbms` db user and grant privileges to him:
 
 ```
 sudo -u postgres psql
@@ -382,14 +382,13 @@ CREATE EXTENSION pg_trgm;
 ALTER EXTENSION pg_trgm SET SCHEMA public;
 UPDATE pg_opclass SET opcdefault = true WHERE opcname='gin_trgm_ops';
 \q
-exit
 ```
 
-Now we can test connection. Create `~/.pgpass` with login and password to db for fast connect:
+Now we can test connection. Create `~/.pgpass` with login and password to connect without a password request:
 
 ```
 vim ~/.pgpass
-	localhost:5432:dbms_db:dbms:some_password
+    localhost:5432:dbms_db:dbms:some_password
 chmod 600 ~/.pgpass
 psql -h localhost -U dbms dbms_db
 ```
@@ -397,5 +396,5 @@ psql -h localhost -U dbms dbms_db
 Run SQL dump, if you have:
 
 ```
-psql -h localhost dbms_db dbms  < dump.sql
+psql -h localhost dbms_db dbms < dump.sql
 ```
