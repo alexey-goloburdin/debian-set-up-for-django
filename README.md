@@ -132,7 +132,7 @@ python3.7 -m venv env ; \
 pip install -U pip
 ```
 
-## Install and config Django
+## Install and configure Django
 
 Install Django via pip:
 
