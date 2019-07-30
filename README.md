@@ -29,7 +29,7 @@ sudo service ssh restart
 sudo passwd www
 ```
 
-## Setup russian locale (optional)
+## Setup russian locale
 
 ```
 sudo localedef ru_RU.UTF-8 -i ru_RU -fUTF-8 ; \
@@ -43,10 +43,11 @@ sudo dpkg-reconfigure locales
 In window "Configuring locales":
 * OK
 
+
 - disable en_US.UTF-8 UTF-8
 + enable ru_RU.UTF-8 UTF-8
-* OK
-* OK
+* OK, OK
+
 
 + select ru_RU.UTF-8
 * OK
@@ -59,10 +60,24 @@ Restart ssh session.
 sudo apt-get install -y zsh tree redis-server nginx  libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-dev python-imaging python3-lxml libxslt-dev python-libxml2 python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev supervisor
 ```
 
+Create password for root:
+
+```
+sudo passwd
+```
+
 Install [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh):
 
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+* Do you want to change your default shell to zsh? [Y/n] **Y**
+* enter root password
+
+Make zsh as default shell:
+
+```
+sudo usermod $USER -s $(which zsh)
 ```
 
 Configure some needed aliases:
@@ -72,15 +87,7 @@ vim ~/.zshrc
     alias cls="clear"
 ```
 
-Make zsh as default shell:
-
-```
-chsh -s $(which zsh)
-```
-
 ## Install python 3.7
-
-mkdir ~/code
 
 Build from source python 3.7, install with prefix to ~/.python folder:
 
@@ -100,14 +107,106 @@ Now python3.7 in `/home/www/.python/bin/python3.7`. Update pip:
 sudo /home/www/.python/bin/python3.7 -m pip install -U pip
 ```
 
-Ok, now we can pull our project from Git repository (or create own), create and activate Python virtual environment:
+Add python bin to PATH:
 
 ```
-cd code
-git pull project_git
-cd project_dir
-python3.7 -m venv env
-. ./env/bin/activate
+vim ~/.zshrc
+    export PATH=$PATH:/home/www/.python/bin
+```
+
+Delete unnecessary files:
+
+```
+sudo rm -rf Python-3.7.3.tgz Python-3.7.3
+```
+
+Ok, now we can create and activate Python virtual environment:
+
+```
+mkdir ~/code ; \
+cd code ; \
+mkdir project1 ; \
+cd project1 ; \
+python3.7 -m venv env ; \
+. ./env/bin/activate ; \
+pip install -U pip
+```
+
+## Install and config Django
+
+Install Django via pip:
+
+```
+pip install django
+```
+
+Create requirements.txt:
+
+```
+pip freeze > requirements.txt
+```
+
+Create Django project:
+
+```
+django-admin startproject project1
+cd project1
+```
+
+Test manage.py:
+
+```
+./manage.py shell
+Ctrl+D
+```
+
+Install ipython for comfort:
+
+```
+pip install ipython
+```
+
+Create Django application:
+
+```
+./manage.py startapp first
+vim project1/settings.py
+    In INSTALLED_APPS section add:
+        'first'
+```
+
+Test Django server:
+
+```
+./manage.py runserver 0.0.0.0:8000
+```
+
+In browser at address http://ip_of_our_server:8000 you should see page:
+
+```
+DisallowedHost at /
+...etc...
+```
+
+Add ip of our server to allowed hosts:
+
+```
+vim project1/settings.py
+    ALLOWED_HOSTS = [] change to ALLOWED_HOSTS = ['ip_of_our_server']
+```
+
+Test Django server again:
+
+```
+./manage.py runserver 0.0.0.0:8000
+```
+
+In browser at address http://ip_of_our_server:8000 you should see:
+
+```
+...
+The install worked successfully! Congratulations!
+...
 ```
 
 ## Install and configure PostgreSQL
