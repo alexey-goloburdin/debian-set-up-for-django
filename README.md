@@ -338,6 +338,10 @@ sudo locale-gen ru_RU.UTF-8 ; \
 sudo dpkg-reconfigure locales
 ```
 
+Prompt about locales:
+
+* OK, OK
+
 Add locales to `/etc/profile`:
 
 ```
