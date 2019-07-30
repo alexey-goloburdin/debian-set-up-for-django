@@ -72,6 +72,12 @@ vim ~/.zshrc
     alias cls="clear"
 ```
 
+Make zsh as default shell:
+
+```
+chsh -s $(which zsh)
+```
+
 ## Install python 3.7
 
 mkdir ~/code
