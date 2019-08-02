@@ -1,20 +1,27 @@
-# Debian Server Set Up for Django Instruction
+# Debian and CentOS Server Set Up for Django Instruction
 
-In this guide we will set up clean Debian 9 server for Python and Django projects. We will configure secure SSH connection, install from Debian repositories and from sources all needed packages and ware it together for working Debian Django server.
+In this guide we will set up clean Debian 9 and CentOS 7 server for Python and Django projects. We will configure secure SSH connection, install from Debian repositories and from sources all needed packages and ware it together for working Debian Django server.
 
 [Youtube video guide (in Russian)](https://www.youtube.com/watch?v=FLiKTJqyyvs)
 
 ## Create user, setup SSH
 
-Connect through SSH to remote Debian server and update repositories and install some initial needed packages:
+Connect through SSH to remote Debian server and update repositories and install some initial needed packages.
 
+Debian:
 ```
 sudo apt-get update ; \
 sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make
 ```
 
-Configure SSH:
+CentOS:
+```
+sudo yum -y update ; \
+sudo yum -y install vim mosh tmux htop git curl wget unzip zip gcc make ; \
+sudo yum -y groupinstall 'Development Tools'
+```
 
+Configure SSH:
 ```
 sudo vim /etc/ssh/sshd_config
     AllowUsers www
@@ -22,10 +29,20 @@ sudo vim /etc/ssh/sshd_config
     PasswordAuthentication no
 ```
 
-Restart SSH server, change `www` user password:
+Restart SSH server, change `www` user password.
 
+Debian:
 ```
 sudo service ssh restart
+```
+
+CentOS (and Debian):
+```
+sudo service sshd restart
+```
+
+Debian, CentOS:
+```
 sudo passwd www
 ```
 
