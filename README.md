@@ -8,13 +8,13 @@ In this guide we will set up clean Debian 9 and CentOS 7 server for Python and D
 
 Connect through SSH to remote Debian server and update repositories and install some initial needed packages.
 
-Debian:
+### Debian:
 ```
 sudo apt-get update ; \
 sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-essential make
 ```
 
-CentOS:
+### CentOS:
 ```
 sudo yum -y update ; \
 sudo yum -y install vim mosh tmux htop git curl wget unzip zip gcc make ; \
@@ -29,20 +29,11 @@ sudo vim /etc/ssh/sshd_config
     PasswordAuthentication no
 ```
 
-Restart SSH server, change `www` user password.
+### Debian, CentOS:
 
-Debian:
-```
-sudo service ssh restart
-```
-
-CentOS (and Debian):
+Restart SSH server, change user `www` password:
 ```
 sudo service sshd restart
-```
-
-Debian, CentOS:
-```
 sudo passwd www
 ```
 
