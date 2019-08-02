@@ -16,6 +16,7 @@ sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-ess
 
 ### CentOS:
 ```
+sudo yum install -y epel-release ; \
 sudo yum -y update ; \
 sudo yum -y install vim mosh tmux htop git curl wget unzip zip gcc make ; \
 sudo yum -y groupinstall 'Development Tools'
