@@ -48,6 +48,8 @@ sudo passwd www
 
 ## Setup russian locale
 
+### Debian:
+
 ```
 sudo localedef ru_RU.UTF-8 -i ru_RU -fUTF-8 ; \
 export LANGUAGE=ru_RU.UTF-8 ; \
@@ -70,6 +72,12 @@ In window "Configuring locales":
 * OK
 
 Restart ssh session.
+
+### CentOS:
+
+```
+sudo localectl set-locale LANG=ru_RU.UTF-8
+```
 
 ## Install must-have packages
 
