@@ -51,31 +51,22 @@ sudo passwd www
 ### Debian:
 
 ```
+sudo apt -y install locales ; \
 sudo localedef -i ru_RU -f UTF-8 ru_RU.UTF-8 ; \
 export LANGUAGE=ru_RU.UTF-8 ; \
 export LANG=ru_RU.UTF-8 ; \
 export LC_ALL=ru_RU.UTF-8 ; \
-sudo locale-gen ru_RU.UTF-8 ; \
-sudo dpkg-reconfigure locales
+sudo locale-gen --purge ru_RU.UTF-8 ; \
+sudo update-locale LANG=ru_RU.UTF-8 ; \
+sudo dpkg-reconfigure --frontend noninteractive locales
 ```
-
-In window "Configuring locales":
-* OK
-
-
-- disable en_US.UTF-8 UTF-8
-+ enable ru_RU.UTF-8 UTF-8
-* OK, OK
-
-
-+ select ru_RU.UTF-8
-* OK
 
 Restart ssh session.
 
 ### CentOS:
 
 ```
+sudo yum -y install glibc-common ; \
 sudo localedef -i ru_RU -f UTF-8 ru_RU.UTF-8 ; \
 export LANGUAGE=ru_RU.UTF-8 ; \
 export LANG=ru_RU.UTF-8 ; \
@@ -100,6 +91,8 @@ sudo passwd
 ```
 
 ## Install ZSH (optional)
+
+### Debian: 
 
 Install [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh):
 
