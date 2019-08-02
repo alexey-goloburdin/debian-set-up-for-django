@@ -51,7 +51,7 @@ sudo passwd www
 ### Debian:
 
 ```
-sudo localedef ru_RU.UTF-8 -i ru_RU -fUTF-8 ; \
+sudo localedef -i ru_RU -f UTF-8 ru_RU.UTF-8 ; \
 export LANGUAGE=ru_RU.UTF-8 ; \
 export LANG=ru_RU.UTF-8 ; \
 export LC_ALL=ru_RU.UTF-8 ; \
@@ -76,6 +76,10 @@ Restart ssh session.
 ### CentOS:
 
 ```
+sudo localedef -i ru_RU -f UTF-8 ru_RU.UTF-8 ; \
+export LANGUAGE=ru_RU.UTF-8 ; \
+export LANG=ru_RU.UTF-8 ; \
+export LC_ALL=ru_RU.UTF-8 ; \
 sudo localectl set-locale LANG=ru_RU.UTF-8
 ```
 
