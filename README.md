@@ -17,7 +17,7 @@ sudo apt-get install -y vim mosh tmux htop git curl wget unzip zip gcc build-ess
 ### CentOS:
 ```
 sudo yum -y update ; \
-sudo yum -y install vim mosh tmux htop git curl wget unzip zip gcc make zlib-devel ; \
+sudo yum -y install vim mosh tmux htop git curl wget unzip zip gcc make ; \
 sudo yum -y groupinstall 'Development Tools'
 ```
 
@@ -35,6 +35,11 @@ Restart SSH server, change user `www` password:
 ```
 sudo service sshd restart
 sudo passwd www
+```
+
+Create password for root:
+```
+sudo passwd
 ```
 
 ## Setup russian locale
@@ -67,15 +72,23 @@ sudo localectl set-locale LANG=ru_RU.UTF-8
 
 ## Install must-have packages
 
+### Debian:
 ```
-sudo apt-get install -y zsh tree redis-server nginx  libssl-dev zlib1g-dev libbz2-dev \
-libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev \
-libffi-dev liblzma-dev python3-dev python-imaging python3-lxml libxslt-dev python-libxml2 \
-python-libxslt1 libffi-dev libssl-dev python-dev gnumeric libsqlite3-dev libpq-dev \
-libxml2-dev libxslt1-dev libjpeg-dev libfreetype6-dev libcurl4-openssl-dev supervisor
+sudo apt-get install -y gnumeric libbz2-dev libcurl4-openssl-dev libffi-dev \
+libfreetype6-dev libjpeg-dev liblzma-dev libncurses5-dev libncursesw5-dev \
+libpq-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxslt-dev \
+libxslt1-dev llvm nginx python-dev python-imaging python-libxml2 \
+python-libxslt1 python3-dev python3-lxml redis-server supervisor \
+tk-dev tree xz-utils zlib1g-dev zsh
 ```
 
-Create password for root:
+CentOS:
+```
+sudo yum install -y zlib-devel
+```
+
+
+### Create password for root:
 
 ```
 sudo passwd
