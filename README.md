@@ -21,6 +21,8 @@ sudo yum -y install vim mosh tmux htop git curl wget unzip zip gcc make ; \
 sudo yum -y groupinstall 'Development Tools'
 ```
 
+### Debian, CentOS:
+
 Configure SSH:
 ```
 sudo vim /etc/ssh/sshd_config
@@ -28,8 +30,6 @@ sudo vim /etc/ssh/sshd_config
     PermitRootLogin no
     PasswordAuthentication no
 ```
-
-### Debian, CentOS:
 
 Restart SSH server, change user `www` password:
 ```
