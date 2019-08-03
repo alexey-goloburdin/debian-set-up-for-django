@@ -85,7 +85,7 @@ tk-dev tree xz-utils zlib1g-dev zsh
 
 CentOS:
 ```
-sudo yum install -y zlib-devel
+sudo yum-builddep python
 ```
 
 
