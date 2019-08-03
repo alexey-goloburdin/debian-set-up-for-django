@@ -167,7 +167,11 @@ pip install -U pip
 
 ### CentOS
 
-Need SQLite 3.8.3
+#### Compile Python 3.7
+
+https://linuxconfig.org/compile-and-install-python-3-on-centos-7-linux-from-source
+
+#### Need SQLite 3.8.3
 
 django.core.exceptions.ImproperlyConfigured: SQLite 3.8.3 or later is required (found 3.7.17).
 https://stackoverflow.com/questions/55674176/django-cant-find-new-sqlite-version-sqlite-3-8-3-or-later-is-required-found
