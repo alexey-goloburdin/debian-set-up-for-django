@@ -83,7 +83,7 @@ python-libxslt1 python3-dev python3-lxml redis-server supervisor \
 tk-dev tree xz-utils zlib1g-dev zsh
 ```
 
-CentOS:
+### CentOS:
 ```
 sudo yum-builddep python
 ```
